@@ -17,7 +17,7 @@ inquirer.prompt(homeMenu)
     {
         if(answer.options == "exit")
         {
-            
+            return;
         }
         subMenu(answer.options)
     })
@@ -37,18 +37,16 @@ inquirer.prompt(subMenu)
         let selectedType = answer.options.substr(answer.options.indexOf(' ')+1);
         selectedType = selectedType.toLowerCase();
         const funcType = selectedType + "-" + selectedFunction;
-        
-        if(funcType == "employee-view")
+      
+        if(funcType == "employees-view")
         {
+            //go into further options if its employee view
             userViewPrompts();
         }
         else
         {
             switch (selectedFunction)
             {
-            case "add": 
-            userAddPrompts();
-            break;
             case "view": 
             viewPrompts(selectedType);
             break;
@@ -58,16 +56,83 @@ inquirer.prompt(subMenu)
             case "delete": 
             deletePrompts(selectedType);
             break;
-            case "department-add":
+            case "add":
             addPrompts(selectedType);
             break;
             default:
-            exit();
+            init();
             }
         }
     })
     .catch(err => {console.log(err)});
 
+}
+
+function addPrompts(choice)
+{
+
+    switch(choice)
+    {
+    case "user":
+    break;
+    case "userByMgr":
+    break;
+    case "department":
+    break;
+    case "role":
+    break;
+    default: init();
+    }
+}
+
+function viewPrompts(choice)
+{
+
+switch(choice)
+    {
+    case "user-all":
+    break;
+    case "userByMgr":
+    break;
+    case "department":
+    break;
+    case "role":
+    break;
+    default: init();
+    }
+}
+
+function updatePrompts(choice)
+{
+
+    switch(choice)
+    {
+    case "user-all":
+    break;
+    case "userByMgr":
+    break;
+    case "department":
+    break;
+    case "role":
+    break;
+    default: 
+    init();
+    }
+}
+
+function deletePrompts(choice)
+{
+
+    switch(choice)
+    {
+    case "user":
+    break;
+    case "department":
+    break;
+    case "role":
+    break;
+    default: init();
+    }
 }
 
 function userViewPrompts()
@@ -78,45 +143,17 @@ function userViewPrompts()
     inquirer.prompt(prompts)
     .then((answer) => 
     {
-        
+        if(answer.options == "All employees")
+        {
+            viewPrompts("user-all");
+        }
+        else
+        {
+            viewPrompts("userByMgr");
+        }
     })
     .catch(err => {console.log(err)});
 }
-
-function addPrompts(choice)
-{
-
-    const prompts = inquirerPrompts.addOps(choice);
-
-    inquirer.prompt(prompts)
-    .then((answer) => 
-    {
-        
-    })
-    .catch(err => {console.log(err)});
-}
-
-function viewPrompts(choice)
-{
-
-console.log("called view", choice);
-
-}
-
-function updatePrompts(choice)
-{
-
-    console.log("called update", choice);
-
-}
-
-function deletePrompts(choice)
-{
-
-    console.log("called delete", choice);
-}
-
-
 
 
 init();

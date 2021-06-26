@@ -34,7 +34,7 @@ return [{
     type: "list", 
     name:"options", 
     message:"User view options: ", 
-    choices: [`View all employees`, `View employees by manager`, new inquirer.Separator(), `Return`]
+    choices: [`All employees`, `Employees by manager`, new inquirer.Separator(), `Return`]
 }];
 
 }
