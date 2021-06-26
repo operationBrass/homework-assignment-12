@@ -1,0 +1,2 @@
+exports.allUsers = () => {};
+exports.userByMgr = () => {};

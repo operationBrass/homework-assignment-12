@@ -22,7 +22,7 @@ return [{
     type: "list", 
     name:"options", 
     message:`Select function for ${choice}: `, 
-    choices: [`Add ${choice}`,`Delete ${choice}`, `Update ${choice}`, `View ${choice}`,new inquirer.Separator(), `Return`]
+    choices: [`Add ${choice}`,`Delete ${choice}`, `Update ${choice}`, `View ${choice}s`,new inquirer.Separator(), `Return`]
 }];
 
 }
@@ -34,8 +34,50 @@ return [{
     type: "list", 
     name:"options", 
     message:"User view options: ", 
-    choices: [`View employees, View employees by manager`, new inquirer.Separator(), `Return`]
+    choices: [`View all employees`, `View employees by manager`, new inquirer.Separator(), `Return`]
 }];
 
 }
 
+exports.deleteOps = (choice, list) =>{
+
+    return [{ 
+    // home options
+        type: "list", 
+        name:"options", 
+        message:`Which ${choice} would you like to delete?`, 
+        choices: list
+    }];
+    
+    }
+    
+    exports.updateOps = (choice, list) =>{
+
+        return [{ 
+        // home options
+            type: "list", 
+            name:"options", 
+            message:`Which ${choice} would you like to update?`, 
+            choices: list
+        }];
+        
+        }
+        
+        exports.addEmpOps = (list) =>{
+
+            return [{ 
+            // home options
+                type: "input", 
+                name:"fName", 
+                message:`First Name: `, 
+                type: "input", 
+                name:"lName", 
+                message:`Last Name: `, 
+                type: "choice", 
+                name:"mgrName", 
+                message:`Managers Name: `, 
+                choice: list
+
+            }];
+            
+            }

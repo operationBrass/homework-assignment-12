@@ -32,46 +32,39 @@ inquirer.prompt(subMenu)
     .then((answer) => 
     {
         //parse the users selection to category i.e employee
-        const getFunc = answer.options.substr(0,answer.options.indexOf(' '));
-        const getType = answer.options.substr(answer.options.indexOf(' ')+1);
-        const funcType = getType.toLowerCase() + "-" + getFunc.toLowerCase();
+        let selectedFunction = answer.options.substr(0,answer.options.indexOf(' '));
+        selectedFunction = selectedFunction.toLowerCase();
+        let selectedType = answer.options.substr(answer.options.indexOf(' ')+1);
+        selectedType = selectedType.toLowerCase();
+        const funcType = selectedType + "-" + selectedFunction;
         
-
-        switch (funcType)
+        if(funcType == "employee-view")
         {
-            case "employee-add": 
             userViewPrompts();
+        }
+        else
+        {
+            switch (selectedFunction)
+            {
+            case "add": 
+            userAddPrompts();
             break;
-            case "employee-view": 
-            userViewPrompts();
+            case "view": 
+            viewPrompts(selectedType);
             break;
-            case "employee-update": 
-            userViewPrompts();
+            case "update": 
+            updatePrompts(selectedType);
             break;
-            case "employee-delete": 
-            userViewPrompts();
+            case "delete": 
+            deletePrompts(selectedType);
             break;
             case "department-add":
-            break;
-            case "department-view":
-            break;
-            case "department-update":
-            break;
-            case "department-delete":
-            break;
-            case "role-add":
-            break;
-            case "role-view":
-            break;
-            case "role-update":
-            break;
-            case "role-delete":
+            addPrompts(selectedType);
             break;
             default:
             exit();
+            }
         }
-
-        
     })
     .catch(err => {console.log(err)});
 
@@ -80,15 +73,51 @@ inquirer.prompt(subMenu)
 function userViewPrompts()
 {
 
-    const userQ = inquirerPrompts.empViewOps();
+    const prompts = inquirerPrompts.empViewOps();
 
-    inquirer.prompt(userQ)
+    inquirer.prompt(prompts)
     .then((answer) => 
     {
         
     })
     .catch(err => {console.log(err)});
 }
+
+function addPrompts(choice)
+{
+
+    const prompts = inquirerPrompts.addOps(choice);
+
+    inquirer.prompt(prompts)
+    .then((answer) => 
+    {
+        
+    })
+    .catch(err => {console.log(err)});
+}
+
+function viewPrompts(choice)
+{
+
+console.log("called view", choice);
+
+}
+
+function updatePrompts(choice)
+{
+
+    console.log("called update", choice);
+
+}
+
+function deletePrompts(choice)
+{
+
+    console.log("called delete", choice);
+}
+
+
+
 
 init();
 
