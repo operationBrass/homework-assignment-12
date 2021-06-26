@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "CMS for accessing MYSQL backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/operationBrass/homework-assignment-12.git"
+  },
+  "author": "Brendan Lewis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/operationBrass/homework-assignment-12/issues"
+  },
+  "homepage": "https://github.com/operationBrass/homework-assignment-12#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inquirer": "^8.1.1",
+    "sequelize": "^6.6.2"
+  }
+}
