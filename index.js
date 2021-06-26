@@ -1,10 +1,7 @@
-const express = require("express");
-const sequelize = require("sequelize");
+const sequelize = require("./config/connection");
 const inquirerPrompts = require("./inquirer");
 const inquirer = require("inquirer");
 
-const app = express();
-const PORT = process.env.PORT || 3001;
 const homeMenu = inquirerPrompts.homeOps();
 
 // TODO: Create a function to initialize app
@@ -31,7 +28,7 @@ function subMenu(option)
 inquirer.prompt(subMenu)
     .then((answer) => 
     {
-        //parse the users selection to category i.e employee
+        //parse the users selection to category and type i.e employees and update
         let selectedFunction = answer.options.substr(0,answer.options.indexOf(' '));
         selectedFunction = selectedFunction.toLowerCase();
         let selectedType = answer.options.substr(answer.options.indexOf(' ')+1);
@@ -75,8 +72,6 @@ function addPrompts(choice)
     {
     case "user":
     break;
-    case "userByMgr":
-    break;
     case "department":
     break;
     case "role":
@@ -107,9 +102,7 @@ function updatePrompts(choice)
 
     switch(choice)
     {
-    case "user-all":
-    break;
-    case "userByMgr":
+    case "user":
     break;
     case "department":
     break;
@@ -122,7 +115,6 @@ function updatePrompts(choice)
 
 function deletePrompts(choice)
 {
-
     switch(choice)
     {
     case "user":
@@ -143,19 +135,30 @@ function userViewPrompts()
     inquirer.prompt(prompts)
     .then((answer) => 
     {
-        if(answer.options == "All employees")
+        if(answer.options.toLowerCase() == "all employees")
         {
             viewPrompts("user-all");
+            return;
         }
-        else
-        {
             viewPrompts("userByMgr");
-        }
+        
     })
     .catch(err => {console.log(err)});
 }
 
+//connect database
+//open port for listening 
+
+sequelize.authenticate()//auth to db
+  .then((auth) =>
+  {
+    sequelize.sync({ force: true });
+    console.log(auth, "Database connected")
+  })
+  .catch((err) => {console.log("error", err)});
+
+
+
 
 init();
 
-// Function call to initialize app

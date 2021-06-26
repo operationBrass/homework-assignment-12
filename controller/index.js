@@ -1,2 +1,0 @@
-exports.allUsers = () => {};
-exports.userByMgr = () => {};
