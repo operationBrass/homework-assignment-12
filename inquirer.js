@@ -29,13 +29,13 @@ return [{
 
 exports.empViewOps = () =>{
 
-return [{ 
-// home options
-    type: "list", 
-    name:"options", 
-    message:"User view options: ", 
-    choices: [`All employees`, `Employees by manager`, new inquirer.Separator(), `Return`]
-}];
+    return [{ 
+    // home options
+        type: "list", 
+        name:"options", 
+        message:"User view options: ", 
+        choices: [`All employees`, `Employees by manager`, new inquirer.Separator(), `Return`]
+    }];
 
 }
 
@@ -43,41 +43,48 @@ exports.deleteOps = (choice, list) =>{
 
     return [{ 
     // home options
-        type: "list", 
-        name:"options", 
-        message:`Which ${choice} would you like to delete?`, 
-        choices: list
+    type: "list", 
+    name:"options", 
+    message:`Which ${choice} would you like to delete?`, 
+    choices: list
     }];
+
+}
+
+exports.updateOps = (choice, list) =>{
+
+    return [{ 
+    // home options
+    type: "list", 
+    name:"options", 
+    message:`Which ${choice} would you like to update?`, 
+    choices: list
+    }];
+
+}
+
+exports.addEmpOps = () =>{
+
+return [{ 
+// home options
+    type: "input", 
+    name:"fName", 
+    message:`First Name: `, 
+    type: "input", 
+    name:"lName", 
+    message:`Last Name: `, 
+    type: "input", 
+    name:"mgrName", 
+    message:`Managers Name: `, 
+    type: "input", 
+    name:"role", 
+    message:"Role: ", 
     
-    }
-    
-    exports.updateOps = (choice, list) =>{
 
-        return [{ 
-        // home options
-            type: "list", 
-            name:"options", 
-            message:`Which ${choice} would you like to update?`, 
-            choices: list
-        }];
-        
-        }
-        
-        exports.addEmpOps = (list) =>{
+}];
 
-            return [{ 
-            // home options
-                type: "input", 
-                name:"fName", 
-                message:`First Name: `, 
-                type: "input", 
-                name:"lName", 
-                message:`Last Name: `, 
-                type: "choice", 
-                name:"mgrName", 
-                message:`Managers Name: `, 
-                choice: list
+}
 
-            }];
-            
-            }
+exports.viewRecords = (model) => {
+
+};

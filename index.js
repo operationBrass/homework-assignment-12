@@ -2,10 +2,9 @@ const sequelize = require("./config/connection");
 const models = require("./models/index");
 const inquirerPrompts = require("./inquirer");
 const inquirer = require("inquirer");
+const controllers = require("./controller/users")
 
 const homeMenu = inquirerPrompts.homeOps();
-
-// TODO: Create a function to initialize app
 
 function init()
 {
@@ -46,16 +45,16 @@ inquirer.prompt(subMenu)
             switch (selectedFunction)
             {
             case "view": 
-            viewPrompts(selectedType);
+            viewTable(selectedType);
             break;
             case "update": 
-            updatePrompts(selectedType);
+            updateTable(selectedType);
             break;
             case "delete": 
-            deletePrompts(selectedType);
+            deleteTable(selectedType);
             break;
             case "add":
-            addPrompts(selectedType);
+            addTable(selectedType);
             break;
             default:
             init();
@@ -81,21 +80,29 @@ function addPrompts(choice)
     }
 }
 
-function viewPrompts(choice)
+async function viewTable(choice)
 {
+//calls the view controller depending on the choice user requested in prompts
+
+let records = {};
 
 switch(choice)
     {
     case "user-all":
+    records = await controllers.viewUsers();
     break;
     case "userByMgr":
+    records = await controllers.viewUsers();
     break;
     case "department":
+    records = await controllers.viewDepartments();
     break;
     case "role":
+    records = await controllers.viewRoles();
     break;
     default: init();
     }
+    console.log(records);
 }
 
 function updatePrompts(choice)
@@ -138,27 +145,14 @@ function userViewPrompts()
     {
         if(answer.options.toLowerCase() == "all employees")
         {
-            viewPrompts("user-all");
+            viewTable("user-all");
             return;
         }
-            viewPrompts("userByMgr");
+            viewTable("userByMgr");
         
     })
     .catch(err => {console.log(err)});
 }
-
-//connect database
-//open port for listening 
-
-sequelize.authenticate()//auth to db
-  .then((auth) =>
-  {
-    sequelize.sync({ force: true });
-    console.log(auth, "Database connected")
-  })
-  .catch((err) => {console.log("error", err)});
-
-
 
 
 init();
