@@ -1,4 +1,5 @@
 const sequelize = require("./config/connection");
+const models = require("./models/index");
 const inquirerPrompts = require("./inquirer");
 const inquirer = require("inquirer");
 

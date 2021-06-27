@@ -19,7 +19,6 @@ Department.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'department',
   }
 );
 
