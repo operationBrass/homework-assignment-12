@@ -4,8 +4,19 @@ const inquirerPrompts = require("./inquirer");
 const inquirer = require("inquirer");
 const controllers = require("./controller/");
 const cTable = require("console.table");
+const seeds = require("./seed");
 
-sequelize.sync({force:true});
+sequelize.sync({force:false});
+
+populateTables();
+
+async function populateTables()
+{
+    const roles = seeds.roles();
+    const departments = seeds.departments();
+    const test = await controllers.roleController.bulkUpdate(roles);
+    const test2 = await controllers.deptController.bulkUpdate(roles);
+}
 
 function init()
 {
@@ -27,14 +38,16 @@ function init()
                 {
                     case "employees":
                     currentMenu = inquirerPrompts.empViewOps();
-                    inquirer.prompt(currentMenu).then(async (result) => 
+                    inquirer.prompt(currentMenu).then(async(result) => 
                     {
                         if (result.options == "Employees by Manager")
                         {
                             output = await controllers.userController.userByMgr();
+                            
                         }
                         else
                         { 
+                            
                             output = await controllers.userController.viewUsers();
                         }
                     viewOutput(output)
@@ -101,6 +114,12 @@ async function viewOutput(output)
 {
     output = JSON.parse(output);
     console.table(output);
+    inquirer.prompt([{ 
+        // home options
+            type: "list", 
+            name:"options", 
+            choices: [`Return`, new inquirer.Separator(), `Exit`]
+        }]);
 }
 
 init();

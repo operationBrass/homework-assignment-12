@@ -23,4 +23,8 @@ exports.addDeptartment = async (dept) => {
     });
     return JSON.stringify(listOfDept, null, 2);
 };
-    
+
+exports.bulkUpdate = async (data) => {
+  const listOfRoles = await Department.bulkCreate(data);
+  return JSON.stringify(listOfRoles, null, 2);
+}

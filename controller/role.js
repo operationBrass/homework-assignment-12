@@ -27,3 +27,7 @@ exports.addRole = async (role) => {
     return JSON.stringify(listOfRoles, null, 2);
 };
     
+exports.bulkUpdate = async (data) => {
+    const listOfRoles = await Role.bulkCreate(data);
+    return JSON.stringify(listOfRoles, null, 2);
+}
