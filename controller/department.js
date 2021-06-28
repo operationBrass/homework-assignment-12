@@ -9,15 +9,17 @@ return JSON.stringify(listOfDept, null, 2);
 exports.deleteDept = async (dept) => {
     const listOfDept = await Department.findAll(
     {
-        
+ 
     });
     return JSON.stringify(listOfDept, null, 2);
 };
 
-exports.addDept = async (dept) => {
-    const listOfDept= await Department.findAll(
-    {
-        
+exports.addDeptartment = async (dept) => {
+     const listOfDept = await Department.findOrCreate({
+        where:
+        {
+          name: dept.dName,
+        }
     });
     return JSON.stringify(listOfDept, null, 2);
 };

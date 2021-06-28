@@ -14,7 +14,7 @@ Role.init(
         type: DataTypes.STRING(30),
         allowNull:false,
       },
-    Salary: {
+    salary: {
         type: DataTypes.FLOAT,
         allowNull:false,
       },

@@ -10,7 +10,7 @@ Role.findAll()
 
 };
 
-exports.deleteDept = async (dept) => {
+exports.deleteRole = async (role) => {
     const listOfRoles = await Role.findAll(
     {
         
@@ -18,10 +18,15 @@ exports.deleteDept = async (dept) => {
     return JSON.stringify(listOfRoles, null, 2);
 };
 
-exports.addDept = async (dept) => {
-    const listOfRoles= await Role.findAll(
-    {
-        
+exports.addRole = async (role) => {
+
+    const listOfRoles = await Role.findOrCreate({
+        where:
+        {
+          title: role.title,
+          salary: role.salary,
+          department_id: 1
+        }
     });
     return JSON.stringify(listOfRoles, null, 2);
 };

@@ -11,7 +11,6 @@ return [{
     message:"Select type to begin: ", 
     choices: ["Employee","Role", "Department",new inquirer.Separator(), "Exit"]
 }];
-
 }
 
 exports.subOps = (choice) =>{
@@ -64,25 +63,57 @@ exports.updateOps = (choice, list) =>{
 }
 
 exports.addEmployee = () =>{
+    return [{ 
+    // home options
+        type: "input", 
+        name:"fName", 
+        message:`First Name: `, 
+    },
+    {
+        type: "input", 
+        name:"lName", 
+        message:`Last Name: `, 
+    },
+    {
+        type: "input", 
+        name:"mgrName", 
+        message:`Managers Name: `, 
+    },
+    {
+        type: "input", 
+        name:"role", 
+        message:"Role: ", 
+    },];
+}
 
-return [{ 
-// home options
-    type: "input", 
-    name:"fName", 
-    message:`First Name: `, 
-    type: "input", 
-    name:"lName", 
-    message:`Last Name: `, 
-    type: "input", 
-    name:"mgrName", 
-    message:`Managers Name: `, 
-    type: "input", 
-    name:"role", 
-    message:"Role: ", 
-    
+exports.addRole = () =>{
+    return [{ 
+    // home options
+        type: "input", 
+        name:"title", 
+        message:`Name: `, 
+    },
+    {
+        type: "input", 
+        name:"salary", 
+        message:`Salary: `, 
+    },
+    {
+        type: "input", 
+        name:"department", 
+        message:`Department: `, 
+    },
+    ];
+}
 
-}];
-
+exports.addDepartment = () =>{
+    return [{ 
+    // home options
+        type: "input", 
+        name:"dName", 
+        message:`Department Name: `, 
+    },
+    ];
 }
 
 exports.viewRecords = (model) => {
