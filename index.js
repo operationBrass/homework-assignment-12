@@ -109,17 +109,17 @@ function init()
         })
     });
 }
-
 async function viewOutput(output)
 {
     output = JSON.parse(output);
     console.table(output);
-    inquirer.prompt([{ 
-        // home options
-            type: "list", 
-            name:"options", 
-            choices: [`Return`, new inquirer.Separator(), `Exit`]
-        }]);
+    inquirer.prompt(
+    [{ 
+    // home options
+        type: "list", 
+        name:"options", 
+        choices: [`Return`, new inquirer.Separator(), `Exit`]
+    }]);
 }
 
 init();

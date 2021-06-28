@@ -23,3 +23,4 @@ Role.init(
 );
 
 module.exports = Role;
+
