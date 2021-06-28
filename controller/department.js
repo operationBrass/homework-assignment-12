@@ -6,7 +6,7 @@ const listOfDept = await Department.findAll();
 return JSON.stringify(listOfDept, null, 2);
 };
 
-exports.deleteDept = (dept) => {
+exports.deleteDept = async (dept) => {
     const listOfDept = await Department.findAll(
     {
         
@@ -14,7 +14,7 @@ exports.deleteDept = (dept) => {
     return JSON.stringify(listOfDept, null, 2);
 };
 
-exports.addDept = (dept) => {
+exports.addDept = async (dept) => {
     const listOfDept= await Department.findAll(
     {
         

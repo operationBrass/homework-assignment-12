@@ -63,7 +63,7 @@ exports.updateOps = (choice, list) =>{
 
 }
 
-exports.addEmpOps = () =>{
+exports.addEmployee = () =>{
 
 return [{ 
 // home options
