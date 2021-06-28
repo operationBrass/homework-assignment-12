@@ -3,47 +3,48 @@ const models = require("./models/index");
 const inquirerPrompts = require("./inquirer");
 const inquirer = require("inquirer");
 const controllers = require("./controller/");
+const cTable = require("console.table");
 
 function init()
 {
-
-let task,table ="";
-let output = {};
-let currentMenu = inquirerPrompts.homeOps();
-inquirer.prompt(currentMenu)
-.then((result) => 
-{
-    currentMenu = inquirerPrompts.subOps(result.options);
-    selection = inquirer.prompt(currentMenu)
-
-    .then(async (result) => 
+    let task,table ="";
+    let output = {};
+    let currentMenu = inquirerPrompts.homeOps();
+    inquirer.prompt(currentMenu)
+    .then((result) => 
     {
-        table = result.options.substr(result.options.indexOf(' ')+1).toLowerCase();
-        task = result.options.substr(0,result.options.indexOf(' ')).toLowerCase();
-        
-        if(task == "view")
+        currentMenu = inquirerPrompts.subOps(result.options);
+        selection = inquirer.prompt(currentMenu)
+        .then(async (result) => 
         {
-            switch(table)
+            table = result.options.substr(result.options.indexOf(' ')+1).toLowerCase();
+            task = result.options.substr(0,result.options.indexOf(' ')).toLowerCase();
+            if(task == "view")
             {
-                case "employees":
-                currentMenu = inquirerPrompts.empViewOps();
-                inquirer.prompt(currentMenu).then(async (result) => 
+                switch(table)
                 {
-                    if (result.options == "Employees by Manager")
+                    case "employees":
+                    currentMenu = inquirerPrompts.empViewOps();
+                    inquirer.prompt(currentMenu).then(async (result) => 
                     {
-                        output = await controllers.userController.userByMgr();
-                    }
-                    else
-                    { 
-                        output = await controllers.userController.viewUsers();
-                    }
-                });
-                break;
-                case "role":
-                output = await controllers.roleController.viewRoles();   
-                break;
-                default:
-                output = await controllers.deptController.viewDepartments();    
+                        if (result.options == "Employees by Manager")
+                        {
+                            output = await controllers.userController.userByMgr();
+                        }
+                        else
+                        { 
+                            output = await controllers.userController.viewUsers();
+                        }
+                    viewOutput(output)
+                    });
+                    break;
+                    case "roles":
+                    output = await controllers.roleController.viewRoles(); 
+                    viewOutput(output);  
+                    break;
+                    default:
+                    output = await controllers.deptController.viewDepartments(); 
+                    viewOutput(output);   
                 }
             }
             else if(task == "add")
@@ -55,7 +56,7 @@ inquirer.prompt(currentMenu)
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
                         output = await controllers.userController.addUser(result);
-                        console.log(output)
+                        viewOutput(output); 
                     });
                     break;
                     case "role":
@@ -63,7 +64,7 @@ inquirer.prompt(currentMenu)
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
                         output = await controllers.roleController.addRole(result);
-                        console.log(output)
+                        viewOutput(output);
                     });
                     break;
                     default: 
@@ -71,7 +72,7 @@ inquirer.prompt(currentMenu)
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
                         output = await controllers.deptController.addDeptartment(result);
-                        console.log(output)
+                        viewOutput(output);
                     });
                 }
             }
@@ -90,35 +91,14 @@ inquirer.prompt(currentMenu)
             {
                 console.log("you wanna delete?")
             }
-        });
+        })
     });
 }
-function updatePrompts(choice)
+
+async function viewOutput(output)
 {
-    switch(choice)
-    {
-    case "user":
-    break;
-    case "department":
-    break;
-    case "role":
-    break;
-    default: 
-    init();
-    }
-}
-function deletePrompts(choice)
-{
-    switch(choice)
-    {
-    case "user":
-    break;
-    case "department":
-    break;
-    case "role":
-    break;
-    default: init();
-    }
+    output = JSON.parse(output);
+    console.table(output);
 }
 
 init();

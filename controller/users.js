@@ -1,11 +1,8 @@
 const { Employee } = require("../models/index")
 
- 
-
 exports.viewUsers = async () => {
 //grab all employees and return to requestor
-const listOfUsers = await Employee.findAll();
-return JSON.stringify(listOfUsers, null, 2);
+return await Employee.findAll();
 };
 
 exports.userByMgr = async (mgr) => {
@@ -30,7 +27,7 @@ exports.addUser = async (user) => {
           manager_id: 1
         }
     });
-    return JSON.stringify(listOfUsers, null, 2);
+    return listOfUsers;
 };
     
 exports.deleteUser = async () => {

@@ -1,8 +1,5 @@
-
 const inquirer = require("inquirer");
-
 exports.homeOps = () =>{
-
 return [{ 
     // home options
 
@@ -12,9 +9,7 @@ return [{
     choices: ["Employee","Role", "Department",new inquirer.Separator(), "Exit"]
 }];
 }
-
-exports.subOps = (choice) =>{
-    
+exports.subOps = (choice) =>{ 
 return [{ 
     // home options
 
@@ -25,9 +20,7 @@ return [{
 }];
 
 }
-
 exports.empViewOps = () =>{
-
     return [{ 
     // home options
         type: "list", 
@@ -35,11 +28,8 @@ exports.empViewOps = () =>{
         message:"User view options: ", 
         choices: [`All employees`, `Employees by manager`, new inquirer.Separator(), `Return`]
     }];
-
 }
-
 exports.deleteOps = (choice, list) =>{
-
     return [{ 
     // home options
     type: "list", 
@@ -47,11 +37,8 @@ exports.deleteOps = (choice, list) =>{
     message:`Which ${choice} would you like to delete?`, 
     choices: list
     }];
-
 }
-
 exports.updateOps = (choice, list) =>{
-
     return [{ 
     // home options
     type: "list", 
@@ -59,9 +46,7 @@ exports.updateOps = (choice, list) =>{
     message:`Which ${choice} would you like to update?`, 
     choices: list
     }];
-
 }
-
 exports.addEmployee = () =>{
     return [{ 
     // home options
@@ -85,7 +70,6 @@ exports.addEmployee = () =>{
         message:"Role: ", 
     },];
 }
-
 exports.addRole = () =>{
     return [{ 
     // home options
@@ -105,7 +89,6 @@ exports.addRole = () =>{
     },
     ];
 }
-
 exports.addDepartment = () =>{
     return [{ 
     // home options
@@ -115,7 +98,5 @@ exports.addDepartment = () =>{
     },
     ];
 }
-
 exports.viewRecords = (model) => {
-
 };

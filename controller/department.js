@@ -2,8 +2,7 @@ const { Department } = require("../models/index")
 
 exports.viewDepartments = async () => {
 //grab all departments and return to requestor
-const listOfDept = await Department.findAll();
-return JSON.stringify(listOfDept, null, 2);
+return await Department.findAll();
 };
 
 exports.deleteDept = async (dept) => {
