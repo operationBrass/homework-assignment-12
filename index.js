@@ -5,6 +5,8 @@ const inquirer = require("inquirer");
 const controllers = require("./controller/");
 const cTable = require("console.table");
 
+sequelize.sync({force:true});
+
 function init()
 {
     let task,table ="";

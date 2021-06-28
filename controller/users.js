@@ -2,7 +2,8 @@ const { Employee } = require("../models/index")
 
 exports.viewUsers = async () => {
 //grab all employees and return to requestor
-return await Employee.findAll();
+const listOfUsers = await Employee.findAll({});
+return JSON.stringify(listOfUsers, null, 2);
 };
 
 exports.userByMgr = async (mgr) => {

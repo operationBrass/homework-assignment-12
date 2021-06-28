@@ -18,14 +18,6 @@ Employee.init(
         type: DataTypes.STRING(30),
         allowNull:false,
       },
-    role_id: {
-        type: DataTypes.INTEGER,
-        allowNull:false,
-      },
-    manager_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
   },
   {
     sequelize,

@@ -15,11 +15,7 @@ Role.init(
         allowNull:false,
       },
     salary: {
-        type: DataTypes.FLOAT,
-        allowNull:false,
-      },
-    department_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull:false,
       },
   },

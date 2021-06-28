@@ -13,6 +13,11 @@ Role.belongsToMany(Role, {
 });
 */
 
+// Relationships
+Department.hasMany(Role, {as: 'staff'});
+Role.hasMany(Employee,{as:'roles'});
+Employee.hasMany(Employee,{as: 'manager'});
+
 module.exports =
 {
     Department,

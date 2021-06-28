@@ -2,8 +2,8 @@ const { Role } = require("../models/index")
 
 exports.viewRoles = async () => {
 //grab all Roles and return to requestor
-const result = await Role.findAll()
-return JSON.stringify(result)
+const listOfRoles = await Role.findAll({});
+return JSON.stringify(listOfRoles, null, 2);
 }
 
 exports.deleteRole = async (role) => {
@@ -11,7 +11,7 @@ exports.deleteRole = async (role) => {
     {
         
     });
-    return JSON.stringify(listOfRoles, null, 2);
+    
 };
 
 exports.addRole = async (role) => {
