@@ -6,9 +6,9 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
-sequelize.sync({force:false});
+sequelize.sync({force:true});
 
-populateTables();
+//populateTables();
 
 async function populateTables()
 {
@@ -109,6 +109,7 @@ function init()
         })
     });
 }
+
 async function viewOutput(output)
 {
     output = JSON.parse(output);
@@ -121,6 +122,7 @@ async function viewOutput(output)
         choices: [`Return`, new inquirer.Separator(), `Exit`]
     }]);
 }
+
 
 init();
 
