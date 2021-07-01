@@ -1,3 +1,4 @@
+const { ENETUNREACH } = require("constants");
 const { Role } = require("../models/index")
 
 exports.viewRoles = async () => {
@@ -14,20 +15,31 @@ exports.deleteRole = async (role) => {
     
 };
 
-exports.addRole = async (role) => {
-
+exports.addRole = async (newRecord) => {
     const listOfRoles = await Role.findOrCreate({
-        where:
-        {
-          title: role.title,
-          salary: role.salary,
-          department_id: 1
-        }
-    });
-    return JSON.stringify(listOfRoles, null, 2);
+       where:
+       {
+         title: newRecord.title,
+         salary: newRecord.salary,
+         DepartmentId: newRecord.options
+       }
+   });
+   return JSON.stringify(listOfRoles, null, 2);
 };
-    
-exports.bulkUpdate = async (data) => {
+
+
+exports.bulkCreate = async (data) => {
     const listOfRoles = await Role.bulkCreate(data);
     return JSON.stringify(listOfRoles, null, 2);
+}
+
+exports.listRoles = async () => {
+    const listOfRoles = await Role.findAll();
+    const listToSend = [];
+    listOfRoles.forEach((result) => 
+    {
+        listToSend.push({name:result.dataValues.title,value:result.dataValues.id});
+    });
+    
+    return listToSend;
 }

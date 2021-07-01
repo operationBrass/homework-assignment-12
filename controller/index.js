@@ -1,12 +1,12 @@
 const deptController = require("./department");
-const userController = require("./users");
+const employeeController = require("./employee");
 const roleController = require("./role");
 
 
 module.exports =
 {
     deptController,
-    userController,
+    employeeController,
     roleController,
 };
 

@@ -6,23 +6,21 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
-sequelize.sync({force:true});
-
-//populateTables();
-
 async function populateTables()
 {
     const roles = seeds.roles();
     const departments = seeds.departments();
-    const test = await controllers.roleController.bulkUpdate(roles);
-    const test2 = await controllers.deptController.bulkUpdate(roles);
+    await controllers.deptController.bulkCreate(departments);
+    await controllers.roleController.bulkCreate(roles);
 }
 
 function init()
 {
     let task,table ="";
     let output = {};
+    let choiceList, choiceList2 = [];
     let currentMenu = inquirerPrompts.homeOps();
+
     inquirer.prompt(currentMenu)
     .then((result) => 
     {
@@ -42,13 +40,11 @@ function init()
                     {
                         if (result.options == "Employees by Manager")
                         {
-                            output = await controllers.userController.userByMgr();
-                            
+                            output = await controllers.employeeController.employeeByMgr();
                         }
                         else
                         { 
-                            
-                            output = await controllers.userController.viewUsers();
+                            output = await controllers.employeeController.viewEmployees();
                         }
                     viewOutput(output)
                     });
@@ -67,15 +63,18 @@ function init()
                 switch(table)
                 {
                     case "employee":
-                    currentMenu = inquirerPrompts.addEmployee();
+                    choiceList = await controllers.employeeController.listEmployees();   
+                    choiceList2 = await controllers.roleController.listRoles();   
+                    currentMenu = inquirerPrompts.addEmployee(choiceList,choiceList2);
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
-                        output = await controllers.userController.addUser(result);
+                        output = await controllers.employeeController.addEmployee(result);
                         viewOutput(output); 
                     });
                     break;
                     case "role":
-                    currentMenu = inquirerPrompts.addRole();
+                    choiceList = await controllers.deptController.listDepartments();   
+                    currentMenu = inquirerPrompts.addRole(choiceList);
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
                         output = await controllers.roleController.addRole(result);
@@ -86,7 +85,7 @@ function init()
                     currentMenu = inquirerPrompts.addDepartment();
                     inquirer.prompt(currentMenu).then(async (result) => 
                     {
-                        output = await controllers.deptController.addDeptartment(result);
+                        output = await controllers.deptController.addDepartment(result);
                         viewOutput(output);
                     });
                 }
@@ -114,15 +113,25 @@ async function viewOutput(output)
 {
     output = JSON.parse(output);
     console.table(output);
-    inquirer.prompt(
+    const answers = await inquirer.prompt(
     [{ 
     // home options
         type: "list", 
         name:"options", 
-        choices: [`Return`, new inquirer.Separator(), `Exit`]
+        choices: [`Continue`, new inquirer.Separator(), `Exit`]
     }]);
+    if(answers.options === "Exit")
+    {
+        return console.log("OK BYE");
+    }
+    else
+    {
+        init();
+    }
 }
 
-
+populateTables();
 init();
+
+
 

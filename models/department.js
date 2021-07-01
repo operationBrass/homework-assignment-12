@@ -5,7 +5,7 @@ class Department extends Model {}
 
 Department.init(
   {
-    name: {
+    department_name: {
       type: DataTypes.STRING(30),
     },
   },

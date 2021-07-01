@@ -1,87 +1,77 @@
+exports.departments = () => {
+  return [
+      {
+          department_name: "HR",
+      },
+      {
+          department_name: "Warehouse",
+      },
+      {
+          department_name: "Service Delivery",
+      },
+  ]};
+
+
 exports.roles = () => { 
     return [
 {
-    title: "Unix Engineer",
-    department_id: 1,
-    salary: 90000
+    title: "Manager",
+    salary: 100000,
+    DepartmentId: 1
+
   },
   
   {
     title: "Software Developer",
-    department_id: 1,
-    salary: 95000
+    salary: 95000,
+    DepartmentId: 3
   },
   
   {
     title: "Database Engineer",
-    department_id: 3,
-    salary: 91000
+    salary: 91000,
+    DepartmentId: 3
   },
   
   {
-    title: "Storage Engineer",
-    department_id: 4,
-    salary: 91000
+    title: "Supervisor",
+    salary: 99000,
+    DepartmentId: 2
   },
   
   {
-    title: "Manager",
-    department_id: 5,
-    salary: 100000
+    title: "Janitor",
+    salary: 99000,
+    DepartmentId: 2
   }
 ]};
 
-exports.departments = () => {
-return [
-    {
-        name: "HR",
-    },
-    {
-        name: "Warehouse",
-    },
-    {
-        name: "Heavy Vehicles",
-    },
-    {
-        name: "Service Delivery",
-    },
-    {
-        name: "Projects",
-    },
-]};
-    
 
+  
 exports.users = () => {
   return [
     {
         first_name: "Brendan",
         last_name: "Lewis",
-        role_id: 1,
-        employee_id: 2
     },
     {
       first_name: "Rachael",
       last_name: "Lewis",
-      role_id: 5,
-      
+  
     },
     {
       first_name: "Archer",
       last_name: "Lewis",
-      role_id: 3,
-      employee_id: 2
+    
     },
     {
       first_name: "Silas",
       last_name: "Lewis",
-      role_id: 4,
-      employee_id: 2
+    
     },
     {
       first_name: "Sebastian",
       last_name: "Lewis",
-      role_id: 2,
-      employee_id: 1
     },
   ]
 };

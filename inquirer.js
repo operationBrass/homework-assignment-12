@@ -47,7 +47,7 @@ exports.updateOps = (choice, list) =>{
     choices: list
     }];
 }
-exports.addEmployee = () =>{
+exports.addEmployee = (managers,roles) =>{
     return [{ 
     // home options
         type: "input", 
@@ -60,17 +60,21 @@ exports.addEmployee = () =>{
         message:`Last Name: `, 
     },
     {
-        type: "input", 
-        name:"mgrName", 
-        message:`Managers Name: `, 
+        // role options
+        type: "list", 
+        name:"rOptions", 
+        message:`Select Role..`, 
+        choices: roles
     },
     {
-        type: "input", 
-        name:"role", 
-        message:"Role: ", 
+        // manager options
+        type: "list", 
+        name:"options", 
+        message:`Select Manager..`, 
+        choices: managers
     },];
 }
-exports.addRole = () =>{
+exports.addRole = (list) =>{
     return [{ 
     // home options
         type: "input", 
@@ -83,12 +87,17 @@ exports.addRole = () =>{
         message:`Salary: `, 
     },
     {
-        type: "input", 
-        name:"department", 
-        message:`Department: `, 
+    // home options
+    type: "list", 
+    name:"options", 
+    message:`Select Department..`, 
+    choices: list,
     },
     ];
 }
+
+
+
 exports.addDepartment = () =>{
     return [{ 
     // home options
