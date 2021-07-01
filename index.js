@@ -6,13 +6,16 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
+//sequelize.sync({force:true});//
 
 async function populateTables()
 {
     const roles = seeds.roles();
     const departments = seeds.departments();
+    const employees = seeds.users();
     await controllers.deptController.bulkCreate(departments);
     await controllers.roleController.bulkCreate(roles);
+    await controllers.employeeController.bulkCreate(employees);
 }
 
 function init()
@@ -96,12 +99,43 @@ function init()
             }
             else if(task == "update")
             {
+                let record = {};
+
                 switch(table)
                 {
-                case "employees":
+                case "department":
+                choiceList1 = await controllers.deptController.listDepartments();
+                currentMenu = await inquirerPrompts.functionOps("Update","Department",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    output = await controllers.deptController.deleteDept(result.options);
+                    viewOutput(output);
+                });
                 break;
                 case "role":
+                choiceList1 = await controllers.roleController.listRoles();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Role",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    output = await controllers.roleController.deleteRole(result.options);
+                    viewOutput(output);
+                });
                 break;
+                case "employee":
+                choiceList1 = await controllers.employeeController.listEmployees();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    choiceList = await controllers.employeeController.listEmployees();   
+                    choiceList2 = await controllers.roleController.listRoles();   
+                    record = await controllers.employeeController.employeeByPk(result.options);
+                    currentMenu = await inquirerPrompts.updateEmployee(record,choiceList,choiceList2)
+                    inquirer.prompt(currentMenu).then(async (result) => {
+                    console.log(result)
+                    output = await controllers.employeeController.updateEmployee(result,record);
+                    viewOutput(output);
+                    });
+                });
                 default: 
                 }
             }
@@ -111,7 +145,7 @@ function init()
                 {
                 case "department":
                 choiceList1 = await controllers.deptController.listDepartments();
-                currentMenu = await inquirerPrompts.deleteOps("Department",choiceList1)
+                currentMenu = await inquirerPrompts.functionOps("Delete","Department",choiceList1)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.deptController.deleteDept(result.options);
@@ -120,7 +154,7 @@ function init()
                 break;
                 case "role":
                 choiceList1 = await controllers.roleController.listRoles();
-                currentMenu = await inquirerPrompts.deleteOps("Role",choiceList1)
+                currentMenu = await inquirerPrompts.functionOps("Delete","Role",choiceList1)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.roleController.deleteRole(result.options);
@@ -129,7 +163,7 @@ function init()
                 break;
                 case "employee":
                 choiceList1 = await controllers.employeeController.listEmployees();
-                currentMenu = await inquirerPrompts.deleteOps("Employee",choiceList1)
+                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList1)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.employeeController.deleteEmployee(result.options);

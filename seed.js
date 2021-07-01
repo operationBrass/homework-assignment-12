@@ -53,25 +53,30 @@ exports.users = () => {
     {
         first_name: "Brendan",
         last_name: "Lewis",
+        RoleId: 1,
     },
     {
       first_name: "Rachael",
       last_name: "Lewis",
-  
+      RoleId: 1,
     },
     {
       first_name: "Archer",
       last_name: "Lewis",
-    
+      RoleId: 2,
+      managerId: 1
     },
     {
       first_name: "Silas",
       last_name: "Lewis",
-    
+      RoleId: 3,
+      managerId: 2
     },
     {
       first_name: "Sebastian",
       last_name: "Lewis",
+      RoleID: 3,
+      managerId: 2
     },
   ]
 };

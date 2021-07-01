@@ -15,7 +15,7 @@ return [{
 
     type: "list", 
     name:"options", 
-    message:`Select function for ${choice}: `, 
+    message:`Select ${choice} function: `, 
     choices: [`Add ${choice}`,`Delete ${choice}`, `Update ${choice}`, `View ${choice}s`,new inquirer.Separator(), `Return`]
 }];
 
@@ -25,28 +25,20 @@ exports.empViewOps = () =>{
     // home options
         type: "list", 
         name:"options", 
-        message:"User view options: ", 
+        message:"Employee Views: ", 
         choices: [`All employees`, `Employees by manager`, new inquirer.Separator(), `Return`]
     }];
 }
-exports.deleteOps = (choice, list) =>{
+exports.functionOps = (func, choice, list) =>{
     return [{ 
     // home options
     type: "list", 
     name:"options", 
-    message:`Which ${choice} would you like to delete?`, 
+    message:`${func} ${choice}`, 
     choices: list
     }];
 }
-exports.updateOps = (choice, list) =>{
-    return [{ 
-    // home options
-    type: "list", 
-    name:"options", 
-    message:`Which ${choice} would you like to update?`, 
-    choices: list
-    }];
-}
+
 exports.addEmployee = (managers,roles) =>{
     return [{ 
     // home options
@@ -105,5 +97,33 @@ exports.addDepartment = () =>{
     },
     ];
 }
-exports.viewRecords = (model) => {
-};
+
+exports.updateEmployee = (employee, roles, managers) =>{
+    return [
+    { 
+    // home options
+        type: "input", 
+        name:"fName", 
+        message:`First Name: `, 
+        default: employee.first_name
+    },
+    {
+        type: "input", 
+        name:"lName", 
+        message:`Last Name: `, 
+        default: employee.last_name
+    },
+    {
+        // role options
+        type: "list", 
+        name:"rOptions", 
+        message:`Select Role..`, 
+        choices: roles
+    },
+    {
+        // manager options
+        type: "list", 
+        name:"options", 
+        message:`Select Manager..`, 
+        choices: managers
+    },]};

@@ -1,4 +1,3 @@
-const { ENETUNREACH } = require("constants");
 const { Employee } = require("../models/index")
 
 exports.viewEmployees = async () => {
@@ -6,6 +5,16 @@ exports.viewEmployees = async () => {
 const listOfEmployees = await Employee.findAll();
 return JSON.stringify(listOfEmployees, null, 2);
 };
+
+exports.employeeByPk  = async (pk) =>
+{
+    return await Employee.findOne( {
+        where:
+        {
+          id:pk
+        },
+        });
+}
 
 exports.employeeByMgr = async (mgr) => {
 const listOfEmployees = await Employee.findAll(
@@ -33,6 +42,23 @@ exports.addEmployee =  async (user) => {
           RoleId: user.rOptions,
         },
     });
+    return JSON.stringify(listOfEmployees, null, 2);
+};
+
+exports.updateEmployee =  async (user, record) => {
+    //grab all employees and return to requestor
+    if(user.options === 0) 
+    {
+        user.options = null;
+    }
+    const listOfEmployees = await record.update(
+        {
+          first_name: user.fName,
+          last_name:user.lName,
+          managerId: user.options,
+          RoleId: user.rOptions,
+        },
+    );
     return JSON.stringify(listOfEmployees, null, 2);
 };
     
