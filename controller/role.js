@@ -35,7 +35,7 @@ exports.bulkCreate = async (data) => {
 
 exports.listRoles = async () => {
     const listOfRoles = await Role.findAll();
-    const listToSend = [];
+    const listToSend = [{name: "None", value: 0}];
     listOfRoles.forEach((result) => 
     {
         listToSend.push({name:result.dataValues.title,value:result.dataValues.id});
@@ -43,3 +43,15 @@ exports.listRoles = async () => {
     
     return listToSend;
 }
+
+exports.deleteRole = async (role) => {
+    let listOfRole = await Role.destroy(
+    {
+      where:
+      {
+        id: role
+      }
+    })
+    listOfRole = await Role.findAll();
+    return JSON.stringify(listOfRole, null, 2);
+};

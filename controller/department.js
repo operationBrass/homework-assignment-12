@@ -7,10 +7,15 @@ return JSON.stringify(listOfDept, null, 2);
 };
 
 exports.deleteDept = async (dept) => {
-    const listOfDept = await Department.findAll(
+    let listOfDept = await Department.destroy(
     {
- 
-    });
+      where:
+      {
+        id: dept
+      }
+    })
+    console.log(listOfDept)
+    listOfDept = await Department.findAll();
     return JSON.stringify(listOfDept, null, 2);
 };
 
@@ -45,7 +50,7 @@ exports.bulkCreate = async (data) => {
 
 exports.listDepartments = async () => {
   const listOfDepartments = await Department.findAll();
-  const listToSend = [];
+  const listToSend = [{name: "None", value: 0}];
   listOfDepartments.forEach((test) => 
   {
       listToSend.push({name: test.dataValues.department_name,value: test.dataValues.id});
@@ -53,3 +58,4 @@ exports.listDepartments = async () => {
 
   return listToSend;
 }
+

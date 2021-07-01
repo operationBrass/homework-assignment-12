@@ -36,10 +36,17 @@ exports.addEmployee =  async (user) => {
     return JSON.stringify(listOfEmployees, null, 2);
 };
     
-exports.deleteEmployee= async () => {
-    //grab all employees and return to requestor
-    const listOfEmployees = await Employee.findAll();
-    return JSON.stringify(listOfEmployees, null, 2);
+exports.deleteEmployee = async (emp) => {
+    let listOfEmployee = await Employee.destroy(
+    {
+      where:
+      {
+        id: emp
+      }
+    })
+    console.log(listOfEmployee)
+    listOfEmployee = await Employee.findAll();
+    return JSON.stringify(listOfEmployee, null, 2);
 };
 
 exports.bulkCreate = async (data) => {

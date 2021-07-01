@@ -6,6 +6,7 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
+
 async function populateTables()
 {
     const roles = seeds.roles();
@@ -23,6 +24,9 @@ function init()
 
     inquirer.prompt(currentMenu)
     .then((result) => 
+    {
+    if(result.options == "Exit") exit();
+    else
     {
         currentMenu = inquirerPrompts.subOps(result.options);
         selection = inquirer.prompt(currentMenu)
@@ -101,12 +105,45 @@ function init()
                 default: 
                 }
             }
-            else
+            else if(task == "delete")
             {
-                console.log("you wanna delete?")
+                switch(table)
+                {
+                case "department":
+                choiceList1 = await controllers.deptController.listDepartments();
+                currentMenu = await inquirerPrompts.deleteOps("Department",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    output = await controllers.deptController.deleteDept(result.options);
+                    viewOutput(output);
+                });
+                break;
+                case "role":
+                choiceList1 = await controllers.roleController.listRoles();
+                currentMenu = await inquirerPrompts.deleteOps("Role",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    output = await controllers.roleController.deleteRole(result.options);
+                    viewOutput(output);
+                });
+                break;
+                case "employee":
+                choiceList1 = await controllers.employeeController.listEmployees();
+                currentMenu = await inquirerPrompts.deleteOps("Employee",choiceList1)
+                inquirer.prompt(currentMenu).then(async (result) => 
+                {
+                    output = await controllers.employeeController.deleteEmployee(result.options);
+                    viewOutput(output);
+                });
+                default: 
+                }
+            }
+            else // user wants to qui
+            {
+                exit();
             }
         })
-    });
+    }});
 }
 
 async function viewOutput(output)
@@ -122,7 +159,7 @@ async function viewOutput(output)
     }]);
     if(answers.options === "Exit")
     {
-        return console.log("OK BYE");
+        exit();
     }
     else
     {
@@ -130,7 +167,12 @@ async function viewOutput(output)
     }
 }
 
-populateTables();
+function exit()
+{
+    return console.log("OK BYE");
+}
+
+//populateTables();
 init();
 
 

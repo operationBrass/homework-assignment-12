@@ -96,8 +96,6 @@ exports.addRole = (list) =>{
     ];
 }
 
-
-
 exports.addDepartment = () =>{
     return [{ 
     // home options
