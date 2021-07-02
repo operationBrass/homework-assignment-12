@@ -7,13 +7,16 @@ const listOfRoles = await Role.findAll({});
 return JSON.stringify(listOfRoles, null, 2);
 }
 
-exports.deleteRole = async (role) => {
-    const listOfRoles = await Role.findAll(
-    {
-        
-    });
-    
-};
+exports.roleByPk  = async (pk) =>
+{
+    return await Role.findOne( {
+        where:
+        {
+          id:pk
+        },
+        });
+}
+
 
 exports.addRole = async (newRecord) => {
     const listOfRoles = await Role.findOrCreate({
@@ -54,4 +57,21 @@ exports.deleteRole = async (role) => {
     })
     listOfRole = await Role.findAll();
     return JSON.stringify(listOfRole, null, 2);
+};
+
+
+exports.updateRole =  async (role,record) => {
+  //grab all employees and return to requestor
+  if(role.options === 0) 
+  {
+      role.options = null;
+  }
+  const listOfRoles = await record.update(
+      {
+        title: role.title,
+        salary: role.salary,
+        DepartmentId: role.options,
+      },
+  );
+  return JSON.stringify(listOfRoles, null, 2);
 };

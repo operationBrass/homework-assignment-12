@@ -127,3 +127,28 @@ exports.updateEmployee = (employee, roles, managers) =>{
         message:`Select Manager..`, 
         choices: managers
     },]};
+
+    exports.updateRole = (role, departments) =>
+    {
+            return [{ 
+            // home options
+                type: "input", 
+                name:"title", 
+                message:`Name: `, 
+                default: role.title,
+            },
+            {
+                type: "input", 
+                name:"salary", 
+                message:`Salary: `, 
+                default: role.salary,
+            },
+            {
+            // home options
+            type: "list", 
+            name:"options", 
+            message:`Select Department..`, 
+            choices: departments,
+            },
+            ];
+    }

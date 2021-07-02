@@ -104,37 +104,51 @@ function init()
                 switch(table)
                 {
                 case "department":
-                choiceList1 = await controllers.deptController.listDepartments();
-                currentMenu = await inquirerPrompts.functionOps("Update","Department",choiceList1)
-                inquirer.prompt(currentMenu).then(async (result) => 
                 {
-                    output = await controllers.deptController.deleteDept(result.options);
-                    viewOutput(output);
-                });
+                 console.log("perhaps in the next release, delete and create a new one!")
+                 init();
+                };
                 break;
                 case "role":
-                choiceList1 = await controllers.roleController.listRoles();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Role",choiceList1)
+                choiceList = await controllers.roleController.listRoles();
+                currentMenu = await inquirerPrompts.functionOps("Update","Role",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
-                    output = await controllers.roleController.deleteRole(result.options);
+                    if(result.options == 0)
+                    {
+                        init();
+                    }
+                    else
+                    {
+                    choiceList = await controllers.roleController.listRoles();
+                    choiceList2 = await controllers.deptController.listDepartments();
+                    record = await controllers.roleController.roleByPk(result.options);
+                    currentMenu = await inquirerPrompts.updateRole(record,choiceList2)
+                    inquirer.prompt(currentMenu).then(async (result) => 
+                    {
+                    output = await controllers.roleController.updateRole(result,record);
                     viewOutput(output);
+                    })
+                }
                 });
                 break;
                 case "employee":
-                choiceList1 = await controllers.employeeController.listEmployees();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList1)
+                choiceList = await controllers.employeeController.listEmployees();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
-                    choiceList = await controllers.employeeController.listEmployees();   
-                    choiceList2 = await controllers.roleController.listRoles();   
-                    record = await controllers.employeeController.employeeByPk(result.options);
-                    currentMenu = await inquirerPrompts.updateEmployee(record,choiceList,choiceList2)
-                    inquirer.prompt(currentMenu).then(async (result) => {
-                    console.log(result)
-                    output = await controllers.employeeController.updateEmployee(result,record);
-                    viewOutput(output);
-                    });
+                    if(result.options == 0) {init();}
+                    else
+                    {
+                        choiceList = await controllers.employeeController.listEmployees();   
+                        choiceList2 = await controllers.roleController.listRoles();   
+                        record = await controllers.employeeController.employeeByPk(result.options);
+                        currentMenu = await inquirerPrompts.updateEmployee(record,choiceList,choiceList2)
+                        inquirer.prompt(currentMenu).then(async (result) => {
+                        output = await controllers.employeeController.updateEmployee(result,record);
+                        viewOutput(output);
+                        });
+                    }
                 });
                 default: 
                 }
@@ -144,8 +158,8 @@ function init()
                 switch(table)
                 {
                 case "department":
-                choiceList1 = await controllers.deptController.listDepartments();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Department",choiceList1)
+                choiceList = await controllers.deptController.listDepartments();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Department",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.deptController.deleteDept(result.options);
@@ -153,8 +167,8 @@ function init()
                 });
                 break;
                 case "role":
-                choiceList1 = await controllers.roleController.listRoles();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Role",choiceList1)
+                choiceList = await controllers.roleController.listRoles();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Role",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.roleController.deleteRole(result.options);
@@ -162,8 +176,8 @@ function init()
                 });
                 break;
                 case "employee":
-                choiceList1 = await controllers.employeeController.listEmployees();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList1)
+                choiceList = await controllers.employeeController.listEmployees();
+                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     output = await controllers.employeeController.deleteEmployee(result.options);
@@ -171,8 +185,9 @@ function init()
                 });
                 default: 
                 }
+               
             }
-            else // user wants to qui
+            else // user wants to quit
             {
                 exit();
             }
