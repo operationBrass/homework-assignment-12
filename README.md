@@ -34,15 +34,23 @@ Watch [this](https://drive.google.com/file/d/1xYpVD1gesTMzuDcjNIH77cKjG8_SYv2z/v
 
 ## Installation 
 
-Create Database using schema.sql
+You will need to create an .env file and populate..
+
+`DB_USER= ''`
+
+`DB_PASSWORD= ''`
+
+`DB_NAME='employee_tracker_db'`
+
+Create the Database using schema.sql
 
 `CREATE DATABASE employee_tracker_db;`
 
-To Install
+Install packages
 
 `NPM install` 
 
-To Run
+Run the application
 
 `Node index.js`
 
