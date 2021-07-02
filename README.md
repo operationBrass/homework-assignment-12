@@ -29,7 +29,14 @@ Managing a companies employee database, add, update, delete and view records
 demonstrating database management functions in web application
 
 
+Watch [this](https://drive.google.com/file/d/1xYpVD1gesTMzuDcjNIH77cKjG8_SYv2z/view) video to learn more 
+
+
 ## Installation 
+
+Create Database using schema.sql
+
+`CREATE DATABASE employee_tracker_db;`
 
 To Install
 

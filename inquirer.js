@@ -6,7 +6,7 @@ return [{
     type: "list", 
     name:"options", 
     message:"Select type to begin: ", 
-    choices: ["Employee","Role", "Department",new inquirer.Separator(), "Exit"]
+    choices: ["Employee","Role", "Department", "Populate Tables",new inquirer.Separator(), "Exit"]
 }];
 }
 exports.subOps = (choice) =>{ 

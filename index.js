@@ -6,17 +6,25 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
-sequelize.sync({force:false});
-
 async function populateTables()
 {
+    try
+    {
     const roles = seeds.roles();
     const departments = seeds.departments();
     const employees = seeds.users();
     await controllers.deptController.bulkCreate(departments);
     await controllers.roleController.bulkCreate(roles);
     await controllers.employeeController.bulkCreate(employees);
+    console.log("Tables have been populated");
+    }
+    catch
+    {
+        console.log("Failed to update");
+        exit();
+    }
 }
+
 
 function init()
 {
@@ -26,9 +34,14 @@ function init()
     let currentMenu = inquirerPrompts.homeOps();
 
     inquirer.prompt(currentMenu)
-    .then((result) => 
+    .then(async (result) => 
     {
     if(result.options == "Exit") exit();
+    else if(result.options == "Populate Tables") 
+    {
+    await populateTables();
+    init();
+    }
     else
     {
         currentMenu = inquirerPrompts.subOps(result.options);
@@ -127,7 +140,7 @@ function init()
                 break;
                 case "employee":
                 choiceList = await controllers.employeeController.listEmployees();
-                currentMenu = await inquirerPrompts.functionOps("Delete","Employee",choiceList)
+                currentMenu = await inquirerPrompts.functionOps("Update","Employee",choiceList)
                 inquirer.prompt(currentMenu).then(async (result) => 
                 {
                     if(result.options == 0) {init();}
@@ -136,7 +149,7 @@ function init()
                         choiceList = await controllers.employeeController.listEmployees();   
                         choiceList2 = await controllers.roleController.listRoles();   
                         record = await controllers.employeeController.employeeByPk(result.options);
-                        currentMenu = await inquirerPrompts.updateEmployee(record,choiceList,choiceList2)
+                        currentMenu = await inquirerPrompts.updateEmployee(record,choiceList2,choiceList)
                         inquirer.prompt(currentMenu).then(async (result) => {
                         output = await controllers.employeeController.updateEmployee(result,record);
                         viewOutput(output);
@@ -214,7 +227,7 @@ function exit()
     return console.log("OK BYE");
 }
 
-//populateTables();
+sequelize.sync({force:true});
 init();
 
 
