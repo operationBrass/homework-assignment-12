@@ -9,6 +9,9 @@ exports.departments = () => {
       {
           department_name: "Service Delivery",
       },
+      {
+        department_name: "Sales",
+      },
   ]};
 
 

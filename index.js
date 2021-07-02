@@ -6,7 +6,7 @@ const controllers = require("./controller/");
 const cTable = require("console.table");
 const seeds = require("./seed");
 
-//sequelize.sync({force:true});//
+sequelize.sync({force:false});
 
 async function populateTables()
 {
@@ -45,15 +45,8 @@ function init()
                     currentMenu = inquirerPrompts.empViewOps();
                     inquirer.prompt(currentMenu).then(async(result) => 
                     {
-                        if (result.options == "Employees by Manager")
-                        {
-                            output = await controllers.employeeController.employeeByMgr();
-                        }
-                        else
-                        { 
-                            output = await controllers.employeeController.viewEmployees();
-                        }
-                    viewOutput(output)
+                        output = await controllers.employeeController.viewEmployees();
+                        viewOutput(output)
                     });
                     break;
                     case "roles":
@@ -223,6 +216,7 @@ function exit()
 
 //populateTables();
 init();
+
 
 
 
